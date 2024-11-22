@@ -1,0 +1,30 @@
+#! /bin/bash
+#
+# Reads a version string from stdin
+#
+# - Cleanup version string to get a valid full version tag:
+#   - Remove all non-word characters from the beginning of the string
+#   - Replace underscores with dashes
+#   - Remove all characters that are not word or period or dash from the string
+# - Echo everything up to the first dot (major version)
+# - Echo everything up to the second dot (minor version)
+# - Echo the cleaned-up full version
+# 
+# Only echoes unique and non-empty strings
+
+full=$(cat | sed 's/^[^a-zA-Z0-9]*//' | sed 's/_/-/g' | sed 's/[^a-zA-Z0-9.-]//g')
+major=$(echo $full | sed -rn 's/([^.]*)\..*/\1/p')
+if [[ $full == *.* ]]
+then
+  minor=$(echo $full | sed -rn 's/([^.]*)\.([^.]*).*/\1.\2/p')
+fi
+
+if [ "$major" != "" ] && [ "$major" != "$full" ]
+then
+  echo $major
+fi
+if [ "$minor" != "" ] && [ "$minor" != "$full" ]
+then
+  echo $minor
+fi
+echo $full

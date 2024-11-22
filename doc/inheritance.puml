@@ -1,0 +1,17 @@
+@startuml
+top to bottom direction
+
+object debian
+object "mokolo-org/atum" as atum
+
+debian -> atum
+
+debian : :trixie-slim
+
+atum : parent = debian:trixie-slim
+atum : :13
+atum : :trixie
+atum : :YYYYMMDD-HHMISS
+arum : :latest
+@enduml
+

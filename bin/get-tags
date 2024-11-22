@@ -1,0 +1,9 @@
+#! /bin/bash
+
+# Echoes the following tags:
+# - Debian version by number (12)
+# - Debian version by name (bookworm)
+# Uses system information for this, not static strings
+
+cat /etc/os-release | grep "VERSION_ID" | sed -rn 's/.*"(.*)"/\1/p' | version-to-tags
+cat /etc/os-release | grep "VERSION_CODENAME" | sed -rn 's/.*=(.*)$/\1/p'
